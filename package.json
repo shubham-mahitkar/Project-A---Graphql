@@ -1,0 +1,24 @@
+{
+  "name": "grapql-apollo-8-18",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon server.js",
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "apollo-server": "^3.12.0",
+    "axios": "^1.4.0",
+    "graphql": "^16.8.0",
+    "graphql-request": "^6.1.0",
+    "node-fetch": "^2.6.12",
+    "nodemon": "^3.0.1"
+  },
+  "devDependencies": {
+    "jest": "^29.6.3"
+  }
+}
