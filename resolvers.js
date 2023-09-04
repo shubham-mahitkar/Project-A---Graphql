@@ -37,12 +37,11 @@ const resolvers = {
       console.log("User Added successfully")
       return data
     },
-    updateUser: (parent, { id, name, email, password }, context, info) => {
+    updateUser: (parent, { id, name, email }, context, info) => {
       let data = {
         "id": id,
         "name":name,
         "email":email,
-        "password":password
       };
       
       let config = {
