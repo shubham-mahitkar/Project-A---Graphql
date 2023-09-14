@@ -1,16 +1,46 @@
 // import { request } from 'graphql-request';
-const request = require('graphql-request');
-const resolvers = require('../resolvers');
-const { makeExecutableSchema } = require('@graphql-tools/schema');
-const { mockServer } = require('@graphql-tools/mock');
-const { graphql } = require('graphql');
-const schemas = require('../schema')
-const { gql } = require('apollo-server');
-const axios = require('axios')
-const MockAdapter = require('axios-mock-adapter');
-const mockedAxios = new MockAdapter(axios);
+// const request = require('graphql-request');
+// const { makeExecutableSchema } = require('@graphql-tools/schema');
+// const { mockServer } = require('@graphql-tools/mock');
+// const { graphql } = require('graphql');
+// const schemas = require('../schema')
+// const Users = require('../datasource');
+import {jest} from '@jest/globals'
 
-const graphqlClient = 'http://127.0.0.1:4000';
+import resolvers from './resolvers';
+// import {gql} from '@apollo/server';
+import axios from 'axios';
+import MockAdapter from 'axios-mock-adapter';
+const mockedAxios = new MockAdapter(axios);
+// const graphqlClient = 'http://127.0.0.1:4000';
+
+
+const MockUser = jest.fn().mockImplementation(() => {
+  return {getAllUser: jest.fn().mockReturnValue([
+    {
+        "email": "test@gmail.com",
+        "id": 1,
+        "name": "testt",
+        "password": "pbkdf2:sha256:600000$7blUGE7X47wfLhA5$812e9717924855df00688f81d5c8b84b7a1878af7637d523a286c7a1732c7fff"
+    }])}});
+
+const dataSources = 
+    {
+      users:  MockUser,
+    }
+  
+
+test("get users", async () => {
+  const mockContext = { dataSources };
+  const result = await resolvers.Query.users(null, {}, mockContext);
+
+  expect(
+      result
+  ).toHaveBeenCalledTimes(1);
+  // expect(result).toEqual(expected);
+});
+
+
 
 // jest.mock('axios')
 
@@ -86,23 +116,4 @@ const graphqlClient = 'http://127.0.0.1:4000';
 
 ///
 
-const dataSources = [
-    {
-      id:  jest.mock(),
-      name:  jest.mock(),
-      email:  jest.mock(),
-      password:  jest.mock()
-    }
-  
-]
-
-test("get users", async () => {
-  const mockContext = { dataSources };
-  const result = await resolvers.Query.users(null, {}, mockContext);
-
-  expect(
-      result
-  ).toHaveBeenCalledTimes(1);
-  // expect(result).toEqual(expected);
-});
 

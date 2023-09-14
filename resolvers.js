@@ -1,88 +1,41 @@
-// import axios from "axios";
-const fetch = require('axios'); // You can use any library for HTTP requests
+// import Users  from './users.js';
 
 const resolvers = {
   Query: {
-    users: async () => {
-      const response = await fetch('http://127.0.0.1:5000/users');
-      return response.data;
+    users: async (_, {}, { dataSources }) => {
+      return dataSources.users.getAllUser();
     },
-    user: async (parent, { id }, context, info) => {
-      const response = await fetch('http://127.0.0.1:5000/user/'+id);
-      return response.data[0];
+    user: async (parent, { id }, { dataSources }) => {
+      const getuser = await dataSources.users.getUser(id);
+      return getuser;
     },
   },
   Mutation: {
-    createUser: (parent, { id, name, email, password }, context, info) => {
+    createUser: async (parent, { name, email, password }, { dataSources }) => {
       let data = {
             "name":name,
             "email":email,
             "password":password
           };
-          
-      let config = {
-        method: 'post',
-        maxBodyLength: Infinity,
-        url: 'http://127.0.0.1:5000/add',
-        headers: { 
-            'Content-Type': 'application/json'
-          },
-        data : data
-      };
-        
-      fetch.request(config)
-      // .then((response) => {
-      // console.log(JSON.stringify(response.data));
-      // })
-      console.log("User Added successfully")
-      return data
+
+      const getuser = await dataSources.users.createUser(data);
+      return getuser;
     },
-    updateUser: (parent, { id, name, email }, context, info) => {
+    updateUser: async (parent, { id, name, email }, { dataSources }) => {
       let data = {
         "id": id,
         "name":name,
         "email":email,
       };
-      
-      let config = {
-        method: 'put',
-        maxBodyLength: Infinity,
-        url: 'http://127.0.0.1:5000/update',
-        headers: { 
-          'Content-Type': 'application/json'
-        },
-        data : data
-      };
-      
-      fetch.request(config)
-      // .then((response) => {
-      //   console.log(JSON.stringify(response.data));
-      // })
-      
 
-      console.log("User Updated successfully")
-      return data
+      const getuser = await dataSources.users.updateUser(data);
+      return getuser;
     },
-    deleteUser: async (parent, { id }, context, info) => {
-      let data = '';
-
-      let config = {
-      method: 'delete',
-      maxBodyLength: Infinity,
-      url: 'http://127.0.0.1:5000/delete/'+ id,
-      headers: { },
-      data : data
-      };
-
-      fetch.request(config)
-      // .then((response) => {
-      // console.log(JSON.stringify(response.data));
-      // })
-    
-      console.log("User Deleted successfully")
+    deleteUser: async (parent, { id }, { dataSources }) => {
+      await dataSources.users.deleteUser(id);
       return true;
     }
   }
 };
 
-module.exports = resolvers;
+export default resolvers;
