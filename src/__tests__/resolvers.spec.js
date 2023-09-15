@@ -31,3 +31,88 @@ describe("Query.users", () => {
     expect(result).toEqual(actualApiResult);
   });
 });
+
+describe("Mutation for createUser", () => {
+  const mockCreateUser = jest.fn();
+  const MockUser = jest.fn();
+  const actualApiResult = [
+    {
+      email: "create@gmail.com",
+      name: "create",
+      password: "create@#",
+    },
+  ];
+  const dataSources ={
+    users: MockUser,
+  };
+
+  beforeEach(() => {
+    MockUser.createUser = mockCreateUser;
+    mockCreateUser.mockReturnValue(actualApiResult);
+  });
+
+  test("add user", async () => {
+    const mockContext = { dataSources };
+    const result = await resolvers.Mutation.createUser(null, {
+      email: "create@gmail.com",
+      name: "create",
+      password:
+        "create@#",
+    }, mockContext);
+    expect(mockCreateUser).toHaveBeenCalledTimes(1);
+    expect(result).toEqual(actualApiResult);
+  });
+});
+
+
+
+describe("Mutation for updateUser", () => {
+  const mockUpdateUser = jest.fn();
+  const MockUser = jest.fn();
+  const actualApiResult = [
+    {
+      email: "updated@gmail.com",
+      id: 2,
+      name: "update"},
+  ];
+  const dataSources ={
+    users: MockUser,
+  };
+
+  beforeEach(() => {
+    MockUser.updateUser = mockUpdateUser;
+    mockUpdateUser.mockReturnValue(actualApiResult);
+  });
+
+  test("edit user", async () => {
+    const mockContext = { dataSources };
+    const result = await resolvers.Mutation.updateUser(null, {id:2}, mockContext);
+    console.log("resule: ", result);
+
+    expect(mockUpdateUser).toHaveBeenCalledTimes(1);
+    expect(result).toEqual(actualApiResult);
+  });
+});
+
+describe("Mutation for deleteUser", () => {
+  const mockDeleteUser = jest.fn();
+  const MockUser = jest.fn();
+  const actualApiResult = true;
+  const dataSources ={
+    users: MockUser,
+  };
+
+  beforeEach(() => {
+    MockUser.deleteUser = mockDeleteUser;
+    mockDeleteUser.mockReturnValue(actualApiResult);
+  });
+
+  test("delete user", async () => {
+    const mockContext = { dataSources };
+    const result = await resolvers.Mutation.deleteUser(null, {id:2}, mockContext);
+    console.log("delete: ", result, dataSources);
+
+    expect(mockDeleteUser).toHaveBeenCalledTimes(1);
+    expect(result).toBe(true);
+  });
+});
