@@ -6,7 +6,7 @@ import resolvers from './resolvers.js';
 
 const server = new ApolloServer({ typeDefs, resolvers });
 
-const { url } = startStandaloneServer(server, {
+startStandaloneServer(server, {
   context: async () => {
      const { cache } = server;
     return {

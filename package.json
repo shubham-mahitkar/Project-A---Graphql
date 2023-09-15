@@ -2,17 +2,17 @@
   "name": "grapql-apollo-8-18",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon server.js",
+    "start": "nodemon ./src/server.js",
     "test": "jest"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "axios": "^1.4.0",
+    "@apollo/datasource-rest": "^6.1.0",
+    "@apollo/server": "^4.9.3",
     "graphql": "^16.8.0",
     "graphql-request": "^6.1.0",
     "node-fetch": "^2.6.12",
@@ -23,13 +23,12 @@
     "\\.css$": "some-css-transformer"
   },
   "devDependencies": {
-    "@apollo/datasource-rest": "^6.1.0",
-    "@apollo/server": "^4.9.3",
     "@babel/cli": "^7.22.15",
     "@babel/core": "^7.22.17",
+    "@babel/plugin-transform-runtime": "^7.22.15",
     "@babel/preset-env": "^7.22.15",
     "@babel/register": "^7.22.15",
-    "axios-mock-adapter": "^1.21.5",
+    "babel-jest": "^29.7.0",
     "graphql-tag": "^2.12.6",
     "jest": "^29.6.3"
   },
