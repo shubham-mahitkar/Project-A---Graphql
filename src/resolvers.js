@@ -21,11 +21,12 @@ const resolvers = {
       const getuser = await dataSources.users.createUser(data);
       return getuser;
     },
-    updateUser: async (parent, { id, name, email }, { dataSources }) => {
+    updateUser: async (parent, { id, name, email, application }, { dataSources }) => {
       let data = {
         id: id,
         name: name,
         email: email,
+        application: application,
       };
 
       const getuser = await dataSources.users.updateUser(data);

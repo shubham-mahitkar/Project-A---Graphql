@@ -35,6 +35,7 @@ class Users extends RESTDataSource {
         "id":fetchdata.id,
         "name":fetchdata.name,
         "email":fetchdata.email,
+        "application": fetchdata.application,
       },
       headers: { 
             'Content-Type': 'application/json'
