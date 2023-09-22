@@ -11,11 +11,12 @@ const resolvers = {
     },
   },
   Mutation: {
-    createUser: async (parent, { name, email, password }, { dataSources }) => {
+    createUser: async (parent, { name, email, password, application }, { dataSources }) => {
       let data = {
         name: name,
         email: email,
         password: password,
+        application: application,
       };
 
       const getuser = await dataSources.users.createUser(data);

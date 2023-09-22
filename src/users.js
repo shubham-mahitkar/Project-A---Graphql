@@ -20,7 +20,8 @@ class Users extends RESTDataSource {
       body: {
         "name":fetchdata.name,
         "email":fetchdata.email,
-        "password":fetchdata.password
+        "password":fetchdata.password,
+        "application": fetchdata.application,
       },
       headers: { 
             'Content-Type': 'application/json'
