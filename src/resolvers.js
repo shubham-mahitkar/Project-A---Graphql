@@ -5,10 +5,15 @@ const resolvers = {
     users: async (_, {}, { dataSources }) => {
       return dataSources.users.getAllUser();
     },
-    user: async (parent, { id }, { dataSources }) => {
+    user: async (_, { id }, { dataSources }) => {
       const getuser = await dataSources.users.getUser(id);
       return getuser;
     },
+  },
+  User: {
+    awards: async (_, {}, { dataSources }) => {
+        return await dataSources.users.getAwards(_.id);
+    }
   },
   Mutation: {
     createUser: async (parent, { name, email, password, application }, { dataSources }) => {

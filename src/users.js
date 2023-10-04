@@ -15,6 +15,11 @@ class Users extends RESTDataSource {
     return user[0];
   }
 
+  async getAwards(id) {
+    const award = await this.get(`/user/${id}/awards`)
+    return award;
+  }
+
   async createUser(fetchdata) {
     const data = await this.post('/add', {
       body: {
